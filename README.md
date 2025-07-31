@@ -25,7 +25,7 @@ A web-based tool for creating customizable squircle and rounded square icons. Pe
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/asa-degroff/squircle-creator.git
 cd squircle-creator
 
 # Install dependencies

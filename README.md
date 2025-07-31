@@ -60,6 +60,53 @@ npm run preview
 6. Preview your icon in real-time
 7. Download your icon as SVG or PNG
 
+## Geometry
+
+## Squircle Generator (Superellipse)
+
+The squircle uses a **superellipse** formula:
+```
+(x/a)^n + (y/b)^n = 1
+```
+
+Where:
+- `a` and `b` are the semi-axes (half-width and half-height)
+- `n` is the shape parameter that controls roundness
+
+**Key geometric concepts:**
+
+1. **Shape Parameter**: `n = 8 - cornerRoundness * 5` gives you:
+   - `n = 8` (cornerRoundness = 0): Very square-like shape
+   - `n = 3` (cornerRoundness = 1): More circle-like shape
+
+2. **Parametric Generation**: Instead of solving the implicit equation directly, the code uses a parametric approach:
+   - Iterate through angles from 0 to 2π
+   - For each angle, calculate the corresponding point on the superellipse
+   - `x = a * sign(cos θ) * |cos θ|^(2/n)`
+   - `y = b * sign(sin θ) * |sin θ|^(2/n)`
+
+3. **Coordinate Transform**: Points are shifted by `(w, h)` to center the shape at the origin, then translated to positive coordinates.
+
+## Rounded Square Generator
+
+This uses **quadratic Bézier curves** (Q commands in SVG):
+
+**Geometric structure:**
+1. **Straight edges**: Lines between corner regions
+2. **Rounded corners**: Quadratic curves with control points at the "would-be" sharp corners
+3. **Path construction**:
+   - Start at top-left corner end
+   - Draw line to top-right corner start
+   - Draw quadratic curve around top-right corner
+   - Repeat for each side
+
+**Corner geometry**: Each corner uses a 90° quadratic Bézier where:
+- Start/end points are `radius` distance from the corner
+- Control point is at the sharp corner position
+- This creates a smooth, circular-arc-like curve
+
+The rounded square produces true circular arcs at corners, while the squircle creates a continuous curve with mathematically controlled "squareness" throughout the entire perimeter.
+
 ## Technical Details
 
 - **Framework**: React 19 with Vite

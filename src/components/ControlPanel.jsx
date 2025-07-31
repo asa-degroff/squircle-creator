@@ -14,7 +14,8 @@ function ControlPanel({
   onColorChange,
   onAspectRatioToggle,
   onAspectRatioChange,
-  onMaxDimensionChange
+  onMaxDimensionChange,
+  onPaddingChange
 }) {
   const {
     shapeType,
@@ -22,7 +23,8 @@ function ControlPanel({
     height,
     cornerRoundness,
     cornerRadius,
-    fillColor
+    fillColor,
+    padding
   } = shapeConfig;
 
   return (
@@ -148,6 +150,20 @@ function ControlPanel({
           </label>
         </div>
       )}
+
+      <div className="control-group">
+        <label>
+          Padding: {padding}%
+          <input
+            type="range"
+            min="0"
+            max="50"
+            value={padding}
+            onChange={(e) => onPaddingChange(Number(e.target.value))}
+          />
+        </label>
+        <small>Add transparent space around the icon</small>
+      </div>
 
       <div className="control-group">
         <label>Fill Color</label>

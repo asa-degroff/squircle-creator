@@ -13,6 +13,7 @@ function App() {
   const [aspectRatioLocked, setAspectRatioLocked] = useState(false);
   const [aspectRatio, setAspectRatio] = useState('1:1');
   const [maxDimension, setMaxDimension] = useState(256);
+  const [padding, setPadding] = useState(0);
 
   // Parse aspect ratio and calculate dimensions
   const parseAspectRatio = (ratioString) => {
@@ -68,7 +69,8 @@ function App() {
     height,
     cornerRoundness,
     cornerRadius,
-    fillColor
+    fillColor,
+    padding
   };
 
   return (
@@ -93,6 +95,7 @@ function App() {
           onAspectRatioToggle={handleAspectRatioToggle}
           onAspectRatioChange={handleAspectRatioChange}
           onMaxDimensionChange={updateDimensionsFromMaxDimension}
+          onPaddingChange={setPadding}
         />
         
         <div className="preview-section">

@@ -9,16 +9,27 @@ function ExportButtons({ shapeConfig }) {
     height,
     cornerRoundness,
     cornerRadius,
-    fillColor
+    fillColor,
+    padding
   } = shapeConfig;
 
   const createSVGElement = () => {
     const svgNS = "http://www.w3.org/2000/svg";
     const svg = document.createElementNS(svgNS, "svg");
-    svg.setAttribute("width", width);
-    svg.setAttribute("height", height);
-    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    
+    // Calculate dimensions with padding
+    const paddingAmount = Math.max(width, height) * (padding / 100);
+    const totalWidth = width + paddingAmount * 2;
+    const totalHeight = height + paddingAmount * 2;
+    
+    svg.setAttribute("width", totalWidth);
+    svg.setAttribute("height", totalHeight);
+    svg.setAttribute("viewBox", `0 0 ${totalWidth} ${totalHeight}`);
     svg.setAttribute("xmlns", svgNS);
+
+    // Create a group for the shape with padding offset
+    const g = document.createElementNS(svgNS, "g");
+    g.setAttribute("transform", `translate(${paddingAmount}, ${paddingAmount})`);
 
     const path = document.createElementNS(svgNS, "path");
     const pathData = shapeType === 'squircle'
@@ -28,20 +39,31 @@ function ExportButtons({ shapeConfig }) {
     path.setAttribute("d", pathData);
     path.setAttribute("fill", fillColor);
     
-    svg.appendChild(path);
+    g.appendChild(path);
+    svg.appendChild(g);
     return svg;
   };
 
   const handleSVGDownload = () => {
     const svg = createSVGElement();
-    const filename = `${shapeType}-${width}x${height}.svg`;
+    const paddingAmount = Math.max(width, height) * (padding / 100);
+    const totalWidth = Math.round(width + paddingAmount * 2);
+    const totalHeight = Math.round(height + paddingAmount * 2);
+    const filename = padding > 0 
+      ? `${shapeType}-${width}x${height}-pad${padding}.svg`
+      : `${shapeType}-${width}x${height}.svg`;
     downloadSVG(svg, filename);
   };
 
   const handlePNGDownload = () => {
     const svg = createSVGElement();
-    const filename = `${shapeType}-${width}x${height}.png`;
-    downloadPNG(svg, width, height, filename);
+    const paddingAmount = Math.max(width, height) * (padding / 100);
+    const totalWidth = Math.round(width + paddingAmount * 2);
+    const totalHeight = Math.round(height + paddingAmount * 2);
+    const filename = padding > 0 
+      ? `${shapeType}-${width}x${height}-pad${padding}.png`
+      : `${shapeType}-${width}x${height}.png`;
+    downloadPNG(svg, totalWidth, totalHeight, filename);
   };
 
   return (

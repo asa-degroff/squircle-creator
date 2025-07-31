@@ -3,20 +3,24 @@ import ColorPicker from './ColorPicker';
 
 function ControlPanel({
   shapeConfig,
+  aspectRatioLocked,
+  aspectRatio,
+  maxDimension,
   onShapeTypeChange,
   onWidthChange,
   onHeightChange,
   onCornerRoundnessChange,
-  onFlatSideLengthChange,
   onCornerRadiusChange,
-  onColorChange
+  onColorChange,
+  onAspectRatioToggle,
+  onAspectRatioChange,
+  onMaxDimensionChange
 }) {
   const {
     shapeType,
     width,
     height,
     cornerRoundness,
-    flatSideLength,
     cornerRadius,
     fillColor
   } = shapeConfig;
@@ -42,30 +46,75 @@ function ControlPanel({
       </div>
 
       <div className="control-group">
-        <label>
-          Width: {width}px
+        <label className="checkbox-label">
           <input
-            type="range"
-            min="32"
-            max="512"
-            value={width}
-            onChange={(e) => onWidthChange(Number(e.target.value))}
+            type="checkbox"
+            checked={aspectRatioLocked}
+            onChange={(e) => onAspectRatioToggle(e.target.checked)}
           />
+          <span style={{ marginLeft: '0.5rem' }}>Lock Aspect Ratio</span>
         </label>
       </div>
 
-      <div className="control-group">
-        <label>
-          Height: {height}px
-          <input
-            type="range"
-            min="32"
-            max="512"
-            value={height}
-            onChange={(e) => onHeightChange(Number(e.target.value))}
-          />
-        </label>
-      </div>
+      {aspectRatioLocked ? (
+        <>
+          <div className="control-group">
+            <label>
+              Aspect Ratio
+              <input
+                type="text"
+                className="aspect-ratio-input"
+                value={aspectRatio}
+                onChange={(e) => onAspectRatioChange(e.target.value)}
+                placeholder="e.g., 1:1, 4:3, 16:9"
+              />
+            </label>
+            <small>Format: width:height (e.g., 1:1, 4:3, 16:9)</small>
+          </div>
+
+          <div className="control-group">
+            <label>
+              Size: {maxDimension}px
+              <input
+                type="range"
+                min="32"
+                max="512"
+                value={maxDimension}
+                onChange={(e) => onMaxDimensionChange(Number(e.target.value))}
+              />
+            </label>
+            <small>Dimensions: {width} × {height}px</small>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="control-group">
+            <label>
+              Width: {width}px
+              <input
+                type="range"
+                min="32"
+                max="512"
+                value={width}
+                onChange={(e) => onWidthChange(Number(e.target.value))}
+              />
+            </label>
+          </div>
+
+          <div className="control-group">
+            <label>
+              Height: {height}px
+              <input
+                type="range"
+                min="32"
+                max="512"
+                value={height}
+                onChange={(e) => onHeightChange(Number(e.target.value))}
+              />
+            </label>
+          </div>
+        </>
+      )}
 
       {shapeType === 'squircle' ? (
         <>
@@ -84,20 +133,6 @@ function ControlPanel({
             <small>0% = Square corners, 100% = Circle-like corners</small>
           </div>
 
-          <div className="control-group">
-            <label>
-              Flat Side Length: {Math.round(flatSideLength * 100)}%
-              <input
-                type="range"
-                min="0"
-                max="1"
-                step="0.01"
-                value={flatSideLength}
-                onChange={(e) => onFlatSideLengthChange(Number(e.target.value))}
-              />
-            </label>
-            <small>0% = No flat sides, 100% = Maximum flat sides</small>
-          </div>
         </>
       ) : (
         <div className="control-group">

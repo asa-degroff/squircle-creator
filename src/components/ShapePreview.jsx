@@ -6,14 +6,13 @@ function ShapePreview({
   width,
   height,
   cornerRoundness,
-  flatSideLength,
   cornerRadius,
   fillColor
 }) {
   const svgRef = useRef(null);
 
   const path = shapeType === 'squircle'
-    ? generateSquirclePath(width, height, cornerRoundness, flatSideLength)
+    ? generateSquirclePath(width, height, cornerRoundness)
     : generateRoundedSquarePath(width, height, cornerRadius);
 
   return (

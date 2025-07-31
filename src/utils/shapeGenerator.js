@@ -1,12 +1,10 @@
-export function generateSquirclePath(width, height, cornerRoundness, flatSideLength) {
+export function generateSquirclePath(width, height, cornerRoundness) {
   const w = width / 2;
   const h = height / 2;
   
   // cornerRoundness: 0-1 (0 = square, 1 = circle-like)
-  // flatSideLength: 0-1 (0 = no flat sides, 1 = maximum flat sides)
   
   const n = 3 + cornerRoundness * 5; // Superellipse parameter (3-8)
-  const flatRatio = 1 - flatSideLength;
   
   // Generate path points
   const segments = 100;
@@ -18,8 +16,8 @@ export function generateSquirclePath(width, height, cornerRoundness, flatSideLen
     const sinAngle = Math.sin(angle);
     
     // Superellipse formula: (x/a)^n + (y/b)^n = 1
-    const x = w * Math.sign(cosAngle) * Math.pow(Math.abs(cosAngle), 2/n) * flatRatio;
-    const y = h * Math.sign(sinAngle) * Math.pow(Math.abs(sinAngle), 2/n) * flatRatio;
+    const x = w * Math.sign(cosAngle) * Math.pow(Math.abs(cosAngle), 2/n);
+    const y = h * Math.sign(sinAngle) * Math.pow(Math.abs(sinAngle), 2/n);
     
     points.push({ x: x + w, y: y + h });
   }

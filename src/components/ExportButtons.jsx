@@ -8,7 +8,6 @@ function ExportButtons({ shapeConfig }) {
     width,
     height,
     cornerRoundness,
-    flatSideLength,
     cornerRadius,
     fillColor
   } = shapeConfig;
@@ -23,7 +22,7 @@ function ExportButtons({ shapeConfig }) {
 
     const path = document.createElementNS(svgNS, "path");
     const pathData = shapeType === 'squircle'
-      ? generateSquirclePath(width, height, cornerRoundness, flatSideLength)
+      ? generateSquirclePath(width, height, cornerRoundness)
       : generateRoundedSquarePath(width, height, cornerRadius);
     
     path.setAttribute("d", pathData);

@@ -9,7 +9,7 @@ function App() {
   const [height, setHeight] = useState(256);
   const [cornerRoundness, setCornerRoundness] = useState(0.5);
   const [cornerRadius, setCornerRadius] = useState(32);
-  const [fillColor, setFillColor] = useState('#4F46E5');
+  const [fillColor, setFillColor] = useState('rgba(79, 70, 229, 1)');
   const [aspectRatioLocked, setAspectRatioLocked] = useState(false);
   const [aspectRatio, setAspectRatio] = useState('1:1');
   const [maxDimension, setMaxDimension] = useState(256);

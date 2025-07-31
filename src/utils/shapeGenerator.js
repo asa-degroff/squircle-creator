@@ -4,7 +4,7 @@ export function generateSquirclePath(width, height, cornerRoundness) {
   
   // cornerRoundness: 0-1 (0 = square, 1 = circle-like)
   
-  const n = 3 + cornerRoundness * 5; // Superellipse parameter (3-8)
+  const n = 8 - cornerRoundness * 5; // Superellipse parameter (8-3, reversed)
   
   // Generate path points
   const segments = 100;

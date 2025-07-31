@@ -9,10 +9,11 @@ A web-based tool for creating customizable squircle and rounded square icons. Pe
   - **Rounded Square**: Traditional rounded rectangle shape
 
 - **Customization Options**
-  - **Dimensions**: Adjustable width and height (32-512px)
+  - **Dimensions**: 
+    - Manual mode: Adjust width and height independently (32-512px)
+    - Aspect ratio lock: Set a fixed aspect ratio (e.g., 1:1, 4:3, 16:9) and control size with a single slider
   - **Squircle Parameters**:
     - Corner roundness (0-100%): Controls how round the corners are
-    - Flat side length (0-100%): Controls the length of flat portions on each side
   - **Rounded Square Parameters**:
     - Corner radius: Adjustable radius for rounded corners
   - **Color**: Full color picker with hex color support
@@ -49,9 +50,11 @@ npm run preview
 
 1. Launch the application with `npm run dev`
 2. Select your desired shape type (Squircle or Rounded Square)
-3. Adjust the dimensions using the width and height sliders
+3. Set dimensions:
+   - **Manual mode**: Adjust width and height independently using separate sliders
+   - **Aspect ratio lock**: Check "Lock Aspect Ratio", enter your desired ratio (e.g., 1:1, 4:3, 16:9), and use a single slider to control the size
 4. Fine-tune the shape parameters:
-   - For Squircle: Adjust corner roundness and flat side length
+   - For Squircle: Adjust corner roundness
    - For Rounded Square: Adjust the corner radius
 5. Choose a fill color using the color picker
 6. Preview your icon in real-time
